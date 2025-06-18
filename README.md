@@ -1,40 +1,27 @@
-# Event Bot
+# Simple Discord Bot
 
-This repository contains a simple EchoBot implemented in Python.
+This repository provides a minimal Discord bot implemented in Python.
 
-## Usage
+## Setup
 
-Create a `.env` file with your token:
-
-```bash
-echo "BOT_TOKEN=your-token" > .env
-```
-
-Then run the echo bot from the command line:
-
-```bash
-python -m bot.main
-```
-
-### Discord mode
-
-To run a real Discord bot you need the ``discord.py`` package installed:
+1. Install the `discord.py` package:
 
 ```bash
 pip install discord.py
 ```
 
-Start the bot with:
+2. Set the bot token in the `BOT_TOKEN` environment variable or create a `.env` file:
 
 ```bash
-python -m bot.discord_bot
+echo "BOT_TOKEN=your-token" > .env
 ```
 
-You can also run a standalone script that does not rely on the `bot` package:
+## Running the Bot
+
+Run the bot with:
 
 ```bash
-python index.py
+python discord_bot.py
 ```
 
-The bot will automatically load `BOT_TOKEN` from the `.env` file if it exists.
-Then enter messages. Type `quit` or press `Ctrl+D` to exit.
+The bot will echo back any message it receives.
