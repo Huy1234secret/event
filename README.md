@@ -4,7 +4,14 @@ This repository provides a minimal Discord bot implemented in Python.
 
 ## Setup
 
-1. Install the `discord.py` and `python-dotenv` packages:
+1. Install the required packages. You can install them individually or use the
+   provided `requirements.txt` file:
+
+```bash
+pip install -r requirements.txt
+```
+
+If you prefer to install them manually, run:
 
 ```bash
 pip install discord.py python-dotenv
