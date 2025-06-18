@@ -16,5 +16,11 @@ Then run the bot from the command line:
 python -m bot.main
 ```
 
+You can also run a standalone script that does not rely on the `bot` package:
+
+```bash
+python index.py
+```
+
 The bot will automatically load `BOT_TOKEN` from the `.env` file if it exists.
 Then enter messages. Type `quit` or press `Ctrl+D` to exit.
