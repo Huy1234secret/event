@@ -4,10 +4,10 @@ This repository provides a minimal Discord bot implemented in Python.
 
 ## Setup
 
-1. Install the `discord.py` package:
+1. Install the `discord.py` and `python-dotenv` packages:
 
 ```bash
-pip install discord.py
+pip install discord.py python-dotenv
 ```
 
 2. Set the bot token in the `BOT_TOKEN` environment variable or create a `.env` file:
@@ -15,6 +15,8 @@ pip install discord.py
 ```bash
 echo "BOT_TOKEN=your-token" > .env
 ```
+
+The bot automatically loads the `.env` file from the repository directory when it runs.
 
 ## Running the Bot
 

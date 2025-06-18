@@ -1,9 +1,13 @@
 import os
+from pathlib import Path
+
 import discord
+from dotenv import load_dotenv
 
 
 def main() -> None:
     """Run the Discord bot."""
+    load_dotenv(dotenv_path=Path(__file__).resolve().parent / ".env")
     token = os.getenv("BOT_TOKEN")
     if not token:
         raise RuntimeError("BOT_TOKEN not set")
