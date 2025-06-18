@@ -1,14 +1,10 @@
 import os
-
 import discord
-
-from .main import load_env
 
 
 def main() -> None:
-    """Run the Discord echo bot."""
-    load_env()
-    token = os.environ.get("BOT_TOKEN")
+    """Run the Discord bot."""
+    token = os.getenv("BOT_TOKEN")
     if not token:
         raise RuntimeError("BOT_TOKEN not set")
 
@@ -18,7 +14,6 @@ def main() -> None:
     @client.event
     async def on_ready():
         print(f"Logged in as {client.user} (ID: {client.user.id})")
-        print("------")
 
     @client.event
     async def on_message(message: discord.Message):
