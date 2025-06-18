@@ -1,4 +1,4 @@
-BOT_NAME = 'EchoBot'
+BOT_NAME = 'SPY'
 
 def greet() -> str:
     """Return a greeting from the bot."""
