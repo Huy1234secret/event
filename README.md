@@ -10,10 +10,24 @@ Create a `.env` file with your token:
 echo "BOT_TOKEN=your-token" > .env
 ```
 
-Then run the bot from the command line:
+Then run the echo bot from the command line:
 
 ```bash
 python -m bot.main
+```
+
+### Discord mode
+
+To run a real Discord bot you need the ``discord.py`` package installed:
+
+```bash
+pip install discord.py
+```
+
+Start the bot with:
+
+```bash
+python -m bot.discord_bot
 ```
 
 You can also run a standalone script that does not rely on the `bot` package:
