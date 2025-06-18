@@ -2,7 +2,13 @@ import os
 from pathlib import Path
 
 import discord
-from dotenv import load_dotenv
+
+try:
+    from dotenv import load_dotenv
+except ModuleNotFoundError as exc:
+    raise ModuleNotFoundError(
+        "Missing optional dependency 'python-dotenv'. Install it with 'pip install python-dotenv'."
+    ) from exc
 
 
 def main() -> None:
