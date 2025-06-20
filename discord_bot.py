@@ -70,7 +70,7 @@ def main() -> None:
     @tree.command(name="send_input", description="Display modal to submit a code")
     async def send_input_command(interaction: discord.Interaction) -> None:
         embed, view = build_embed_view()
-        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=False)
 
     client.run(token)
 
