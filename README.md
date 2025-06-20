@@ -34,3 +34,6 @@ python discord_bot.py
 ```
 
 The bot will echo back any message it receives.
+It also registers a `/send_input` slash command on startup that allows you to
+submit a code via a Discord modal. The command is synced automatically whenever
+the bot starts.
