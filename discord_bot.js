@@ -15,8 +15,12 @@ const {
 const BLACKLIST_ROLE_ID = '1385663190096154684';
 
 const token = process.env.BOT_TOKEN;
+const ownerId = process.env.OWNER_ID;
 if (!token) {
   throw new Error('BOT_TOKEN not set');
+}
+if (!ownerId) {
+  throw new Error('OWNER_ID not set');
 }
 
 const client = new Client({
@@ -51,8 +55,16 @@ function buildEmbedAndButton() {
 
 client.on('messageCreate', async (message) => {
   if (message.author.bot) return;
-  if (message.content.trim() === '/send-input') {
+  const content = message.content.trim();
+  if (content === '/send-input') {
     const { embed, row } = buildEmbedAndButton();
+    await message.channel.send({ embeds: [embed], components: [row] });
+  } else if (
+    content === '.send input 1' &&
+    message.author.id === ownerId
+  ) {
+    const { embed, row } = buildEmbedAndButton();
+    await message.delete().catch(() => {});
     await message.channel.send({ embeds: [embed], components: [row] });
   }
 });

@@ -31,3 +31,7 @@ Send `/send-input` in any channel to receive an embed containing the **CODE SUBM
 When you submit a code through the modal, the bot validates the value if you have the role `1385199472094740561`. The only accepted code for this role is `377`. Submitting this code removes the `1385199472094740561` role from you and grants the `1385658290490576988` role. Any other code results in a friendly error message visible only to the person who submitted it.
 
 Members with the role `1385663190096154684` are blacklisted from using the CODE SUBMIT button.
+
+### Owner Prefix Command
+
+Set the `OWNER_ID` environment variable to your Discord user ID. When the owner sends `.send input 1` in a channel, the bot deletes that message and posts the same embed and button that `/send-input` provides.
