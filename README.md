@@ -38,8 +38,11 @@ submit a code via a Discord modal. You can also trigger the same action by
 sending `/send-input` as a regular message. The command is synced automatically
 whenever the bot starts.
 
-When you submit a code through the modal, the bot currently always responds
-with a friendly error message letting you know the code is incorrect. The
-message is only visible to the person who submitted the code.
+When you submit a code through the modal, the bot now validates the value if you
+have the role `1385199472094740561`. The only accepted code for this role is
+`377`. Submitting this code removes the `1385199472094740561` role from you and
+grants the `1385658290490576988` role. Any other code results in a friendly
+error message visible only to the person who submitted it.
 
-Only members with roles 1385641525341454337 or 1385199472094740561 can use the CODE SUBMIT button.
+Only members with roles `1385641525341454337` or `1385199472094740561` can use
+the CODE SUBMIT button.
