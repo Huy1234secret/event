@@ -45,7 +45,8 @@ def main() -> None:
 
             async def on_submit(self, interaction: discord.Interaction) -> None:
                 await interaction.response.send_message(
-                    f"Received code: `{self.code.value}`", ephemeral=True
+                    "\N{CROSS MARK} Wrong code. Please check and try again!",
+                    ephemeral=True,
                 )
 
         class CodeView(ui.View):
