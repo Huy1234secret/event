@@ -1,6 +1,9 @@
 import os
 from pathlib import Path
 
+# Only members with at least one of these role IDs may interact with the button
+ALLOWED_ROLE_IDS = {1385641525341454337, 1385199472094740561}
+
 import discord
 from discord import app_commands, ui
 
@@ -66,6 +69,24 @@ def main() -> None:
             async def submit(
                 self, interaction: discord.Interaction, button: ui.Button
             ) -> None:
+                # Only allow interaction if the user has one of the allowed roles
+                if interaction.guild is None:
+                    await interaction.response.send_message(
+                        "This interaction is only available in a server.",
+                        ephemeral=True,
+                    )
+                    return
+
+                member = interaction.guild.get_member(interaction.user.id)
+                if member is None or not any(
+                    role.id in ALLOWED_ROLE_IDS for role in member.roles
+                ):
+                    await interaction.response.send_message(
+                        "You do not have permission to use this button.",
+                        ephemeral=True,
+                    )
+                    return
+
                 await interaction.response.send_modal(CodeModal())
 
         return embed, CodeView()
