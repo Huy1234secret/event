@@ -1,5 +1,5 @@
-require('dotenv').config();
-const {
+import dotenv from 'dotenv';
+import {
   Client,
   GatewayIntentBits,
   Partials,
@@ -10,7 +10,9 @@ const {
   ButtonBuilder,
   ButtonStyle,
   ActionRowBuilder,
-} = require('discord.js');
+} from 'discord.js';
+
+dotenv.config();
 
 const BLACKLIST_ROLE_ID = '1385663190096154684';
 
