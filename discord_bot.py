@@ -52,6 +52,25 @@ def main() -> None:
             code = ui.TextInput(label="Input Code", placeholder="Your code")
 
             async def on_submit(self, interaction: discord.Interaction) -> None:
+                member = interaction.guild.get_member(interaction.user.id) if interaction.guild else None
+                has_special_role = False
+                if member is not None:
+                    has_special_role = any(role.id == 1385199472094740561 for role in member.roles)
+
+                code_value = str(self.code.value).strip()
+
+                if has_special_role and code_value == "377":
+                    remove_role = interaction.guild.get_role(1385199472094740561)
+                    add_role = interaction.guild.get_role(1385658290490576988)
+                    if remove_role and add_role:
+                        await member.remove_roles(remove_role, reason="Correct code submitted")
+                        await member.add_roles(add_role, reason="Correct code submitted")
+                    await interaction.response.send_message(
+                        "\N{WHITE HEAVY CHECK MARK} Code accepted! Your roles have been updated.",
+                        ephemeral=True,
+                    )
+                    return
+
                 await interaction.response.send_message(
                     "\N{CROSS MARK} Wrong code. Please check and try again!",
                     ephemeral=True,
