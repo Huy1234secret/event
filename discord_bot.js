@@ -3,9 +3,6 @@ const {
   Client,
   GatewayIntentBits,
   Partials,
-  REST,
-  Routes,
-  SlashCommandBuilder,
   EmbedBuilder,
   ModalBuilder,
   TextInputBuilder,
@@ -15,7 +12,7 @@ const {
   ActionRowBuilder,
 } = require('discord.js');
 
-const ALLOWED_ROLE_IDS = ['1385641525341454337', '1385199472094740561'];
+const BLACKLIST_ROLE_ID = '1385663190096154684';
 
 const token = process.env.BOT_TOKEN;
 if (!token) {
@@ -32,19 +29,8 @@ const client = new Client({
   partials: [Partials.Channel],
 });
 
-const rest = new REST({ version: '10' }).setToken(token);
-
-client.once('ready', async () => {
+client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
-  const command = new SlashCommandBuilder()
-    .setName('send_input')
-    .setDescription('Display modal to submit a code');
-  try {
-    await rest.put(Routes.applicationCommands(client.user.id), { body: [command] });
-    console.log('Slash command registered');
-  } catch (err) {
-    console.error('Failed to register slash command:', err);
-  }
 });
 
 function buildEmbedAndButton() {
@@ -72,10 +58,7 @@ client.on('messageCreate', async (message) => {
 });
 
 client.on('interactionCreate', async (interaction) => {
-  if (interaction.isChatInputCommand() && interaction.commandName === 'send_input') {
-    const { embed, row } = buildEmbedAndButton();
-    await interaction.reply({ embeds: [embed], components: [row] });
-  } else if (interaction.isButton() && interaction.customId === 'code_submit') {
+  if (interaction.isButton() && interaction.customId === 'code_submit') {
     if (!interaction.guild) {
       await interaction.reply({
         content: 'This interaction is only available in a server.',
@@ -84,8 +67,8 @@ client.on('interactionCreate', async (interaction) => {
       return;
     }
     const member = interaction.member;
-    const allowed = member.roles.cache.some((role) => ALLOWED_ROLE_IDS.includes(role.id));
-    if (!allowed) {
+    const blacklisted = member.roles.cache.some((role) => role.id === BLACKLIST_ROLE_ID);
+    if (blacklisted) {
       await interaction.reply({
         content: 'You do not have permission to use this button.',
         ephemeral: true,
