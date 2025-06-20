@@ -37,3 +37,7 @@ The bot registers a `/send_input` slash command on startup that allows you to
 submit a code via a Discord modal. You can also trigger the same action by
 sending `/send-input` as a regular message. The command is synced automatically
 whenever the bot starts.
+
+When you submit a code through the modal, the bot currently always responds
+with a friendly error message letting you know the code is incorrect. The
+message is only visible to the person who submitted the code.
