@@ -41,6 +41,11 @@ def main() -> None:
         embed.set_footer(text="Let's keep moving!")
 
         class CodeModal(ui.Modal):
+            """Modal to collect a code from the user."""
+
+            def __init__(self) -> None:
+                super().__init__(title="Submit Code")
+
             code = ui.TextInput(label="Input Code", placeholder="Your code")
 
             async def on_submit(self, interaction: discord.Interaction) -> None:
