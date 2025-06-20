@@ -65,7 +65,6 @@ def main() -> None:
             embed, view = build_embed_view()
             await message.channel.send(embed=embed, view=view)
             return
-        await message.channel.send(f"You said: {message.content}")
 
     @tree.command(name="send_input", description="Display modal to submit a code")
     async def send_input_command(interaction: discord.Interaction) -> None:
