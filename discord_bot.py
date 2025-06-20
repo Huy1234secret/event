@@ -55,6 +55,13 @@ def main() -> None:
                 )
 
         class CodeView(ui.View):
+            """View containing the code submission button."""
+
+            def __init__(self) -> None:
+                # Disable the default timeout so the button remains active
+                # for as long as the bot is running.
+                super().__init__(timeout=None)
+
             @ui.button(label="CODE SUBMIT", style=discord.ButtonStyle.primary)
             async def submit(
                 self, interaction: discord.Interaction, button: ui.Button
