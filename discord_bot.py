@@ -52,10 +52,12 @@ def main() -> None:
             code = ui.TextInput(label="Input Code", placeholder="Your code")
 
             async def on_submit(self, interaction: discord.Interaction) -> None:
-                member = interaction.guild.get_member(interaction.user.id) if interaction.guild else None
+                member = interaction.user if isinstance(interaction.user, discord.Member) else None
                 has_special_role = False
                 if member is not None:
-                    has_special_role = any(role.id == 1385199472094740561 for role in member.roles)
+                    has_special_role = any(
+                        role.id == 1385199472094740561 for role in member.roles
+                    )
 
                 code_value = str(self.code.value).strip()
 
@@ -96,7 +98,7 @@ def main() -> None:
                     )
                     return
 
-                member = interaction.guild.get_member(interaction.user.id)
+                member = interaction.user if isinstance(interaction.user, discord.Member) else None
                 if member is None or not any(
                     role.id in ALLOWED_ROLE_IDS for role in member.roles
                 ):
