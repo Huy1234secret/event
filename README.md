@@ -41,3 +41,5 @@ whenever the bot starts.
 When you submit a code through the modal, the bot currently always responds
 with a friendly error message letting you know the code is incorrect. The
 message is only visible to the person who submitted the code.
+
+Only members with roles 1385641525341454337 or 1385199472094740561 can use the CODE SUBMIT button.
