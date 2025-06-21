@@ -83,7 +83,7 @@ client.on('interactionCreate', async (interaction) => {
       });
       return;
     }
-    const member = interaction.member;
+    const member = await interaction.guild.members.fetch(interaction.user.id);
     const blacklisted = member.roles.cache.some((role) => role.id === BLACKLIST_ROLE_ID);
     if (blacklisted) {
       await interaction.reply({
@@ -106,7 +106,7 @@ client.on('interactionCreate', async (interaction) => {
 
     await interaction.showModal(modal);
   } else if (interaction.isModalSubmit() && interaction.customId === 'code_modal') {
-    const member = interaction.member;
+    const member = await interaction.guild.members.fetch(interaction.user.id);
     const codeValue = interaction.fields.getTextInputValue('code_input').trim();
     const code = codeValue.toUpperCase();
     const hasStage1 = member.roles.cache.some((role) => role.id === STAGE1_ROLE_ID);
