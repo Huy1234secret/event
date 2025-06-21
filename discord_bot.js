@@ -108,10 +108,11 @@ client.on('interactionCreate', async (interaction) => {
   } else if (interaction.isModalSubmit() && interaction.customId === 'code_modal') {
     const member = interaction.member;
     const codeValue = interaction.fields.getTextInputValue('code_input').trim();
+    const code = codeValue.toUpperCase();
     const hasStage1 = member.roles.cache.some((role) => role.id === STAGE1_ROLE_ID);
     const hasStage2 = member.roles.cache.some((role) => role.id === STAGE2_ROLE_ID);
 
-    if (hasStage1 && codeValue === '377') {
+    if (hasStage1 && code === '377') {
       const removeRole = interaction.guild.roles.cache.get(STAGE1_ROLE_ID);
       const addRole = interaction.guild.roles.cache.get(STAGE2_ROLE_ID);
       if (removeRole && addRole) {
@@ -122,7 +123,7 @@ client.on('interactionCreate', async (interaction) => {
         content: '✅ Code accepted! Your roles have been updated.',
         ephemeral: true,
       });
-    } else if (hasStage2 && codeValue === 'FORES') {
+    } else if (hasStage2 && code === 'FORES') {
       await interaction.reply({
         content: 'Almost! You\u2019re missing something\u2026',
         ephemeral: true,
@@ -132,7 +133,7 @@ client.on('interactionCreate', async (interaction) => {
         content: '\u2026and what completes every forest?',
         ephemeral: true,
       });
-    } else if (hasStage2 && codeValue === 'FOREST') {
+    } else if (hasStage2 && code === 'FOREST') {
       const removeRole = interaction.guild.roles.cache.get(STAGE2_ROLE_ID);
       const addRole = interaction.guild.roles.cache.get(STAGE3_ROLE_ID);
       if (removeRole && addRole) {
