@@ -107,35 +107,42 @@ client.on('interactionCreate', async (interaction) => {
     await interaction.showModal(modal);
   } else if (interaction.isModalSubmit() && interaction.customId === 'code_modal') {
     const member = await interaction.guild.members.fetch(interaction.user.id);
-    const codeValue = interaction.fields.getTextInputValue('code_input').trim();
-    const code = codeValue.toUpperCase();
+    const code = interaction.fields.getTextInputValue('code_input').trim().toUpperCase();
+
     const hasStage1 = member.roles.cache.some((role) => role.id === STAGE1_ROLE_ID);
     const hasStage2 = member.roles.cache.some((role) => role.id === STAGE2_ROLE_ID);
 
-    if (hasStage1 && code === '377') {
+    if (hasStage2) {
+      if (code === 'FOREST') {
+        const removeRole = interaction.guild.roles.cache.get(STAGE2_ROLE_ID);
+        const addRole = interaction.guild.roles.cache.get(STAGE3_ROLE_ID);
+        if (removeRole && addRole) {
+          await member.roles.remove(removeRole, 'Correct code submitted');
+          await member.roles.add(addRole, 'Correct code submitted');
+        }
+        await interaction.reply({
+          content: '✅ Code accepted! Your roles have been updated.',
+          ephemeral: true,
+        });
+      } else if (code === 'FORES') {
+        await interaction.reply({
+          content: 'Almost! You\u2019re missing something\u2026',
+          ephemeral: true,
+        });
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        await interaction.followUp({
+          content: '\u2026and what completes every forest?',
+          ephemeral: true,
+        });
+      } else {
+        await interaction.reply({
+          content: '❌ Wrong code. Please check and try again!',
+          ephemeral: true,
+        });
+      }
+    } else if (hasStage1 && code === '377') {
       const removeRole = interaction.guild.roles.cache.get(STAGE1_ROLE_ID);
       const addRole = interaction.guild.roles.cache.get(STAGE2_ROLE_ID);
-      if (removeRole && addRole) {
-        await member.roles.remove(removeRole, 'Correct code submitted');
-        await member.roles.add(addRole, 'Correct code submitted');
-      }
-      await interaction.reply({
-        content: '✅ Code accepted! Your roles have been updated.',
-        ephemeral: true,
-      });
-    } else if (hasStage2 && code === 'FORES') {
-      await interaction.reply({
-        content: 'Almost! You\u2019re missing something\u2026',
-        ephemeral: true,
-      });
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-      await interaction.followUp({
-        content: '\u2026and what completes every forest?',
-        ephemeral: true,
-      });
-    } else if (hasStage2 && code === 'FOREST') {
-      const removeRole = interaction.guild.roles.cache.get(STAGE2_ROLE_ID);
-      const addRole = interaction.guild.roles.cache.get(STAGE3_ROLE_ID);
       if (removeRole && addRole) {
         await member.roles.remove(removeRole, 'Correct code submitted');
         await member.roles.add(addRole, 'Correct code submitted');
